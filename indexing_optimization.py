@@ -43,7 +43,13 @@ chunks = splitter.split_documents(docs)
 
 prompt_text = 'Summarize the following document:\n\n{doc}'
 prompt = ChatPromptTemplate.from_template(prompt_text)
-llm = ChatOpenAI(temperature=0, model='gpt-3.5-turbo')
+llm = ChatOpenAI(
+    temperature=0,
+    model='gpt-3.5-turbo',
+    api_key=api_key,
+    base_url='https://vip.apiyi.com/v1'
+)
+
 summarize_chain = {
     'doc': lambda x: x.page_content } | prompt | llm | StrOutputParser()
 
@@ -99,3 +105,4 @@ sub_docs = retriever.vectorstore.similarity_search(
 
 # whereas the retriever will return the larger source document chunks:
 retrieved_docs = retriever.invoke('chapter on philosophy')
+print(retrieved_docs)

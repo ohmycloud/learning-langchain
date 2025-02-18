@@ -37,6 +37,22 @@ embeddings = embeddings_model.embed_documents(
 connection = 'postgresql+psycopg://langchain:langchain@localhost:6024/langchain'
 db = PGVector.from_documents(chunks, embeddings_model, connection=connection)
 
+# add more documents to an existing database.
+ids = [str(uuid.uuid4()), str(uuid.uuid4())]
+db.add_documents(
+    [
+        Document(
+            page_content="Raku Rocks!",
+            metadata={"location": "raku", "topic": "language"}
+        ),
+        Document(
+            page_content="Raku was previously known as Perl 6!",
+            metadata={"location": "raku", "topic": "language"}
+        )
+    ],
+    ids=ids
+)
+
 # query
 outputs=db.similarity_search("raku", k=4)
 for i in outputs:

@@ -11,4 +11,11 @@ dependencies = [
     "langchain-openai>=0.3.6",
     "langchain-postgres>=0.0.13",
     "langchain-text-splitters>=0.3.6",
+    "psutil>=7.0.0",
+    "ragatouille>=0.0.9",
+]
+
+[dependency-groups]
+dev = [
+    "setuptools>=75.8.0",
 ]

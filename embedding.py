@@ -3,6 +3,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter;
 from langchain_openai import OpenAIEmbeddings
 from dotenv import load_dotenv
 import os
+from langchain_postgres import PGVector
+from langchain_core.documents import Document
+import uuid
 
 load_dotenv()
 api_key = os.getenv('OPENAI_API_KEY')
@@ -29,4 +32,12 @@ embeddings_model = OpenAIEmbeddings(
 embeddings = embeddings_model.embed_documents(
     [chunk.page_content for chunk in chunks]
 )
-print(embeddings)
+
+# embed each chunk and insert it into the vector store
+connection = 'postgresql+psycopg://langchain:langchain@localhost:6024/langchain'
+db = PGVector.from_documents(chunks, embeddings_model, connection=connection)
+
+# query
+outputs=db.similarity_search("raku", k=4)
+for i in outputs:
+    print(i)

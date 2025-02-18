@@ -1,0 +1,22 @@
+Core Developments
+Daniel Green simplified decoding error reporting function on MoarVM.
+Timo Paulssen and Daniel Green fixed several recently introduced decoding issues.
+Stefan Seifert properly fixed a long standing NQP issue with register initialization when writing bytecode for repeat loops.
+Elizabeth Mattijsen was also busy:
+made foo.item (and thus $(foo)) always return a container
+allowed here-docs in the REPL
+fixed hyper operators and .deepmap producing unexpected types / errors
+introduced ordered hashes with Hash::Ordered
+fixed a MAIN dispatch issue with named array arguments
+In RakuAST developments this week:
+
+Stefan Seifert started working on RakuAST again:
+pointy blocks with loop modifiers
+quite a lot of (nested) thunk / block related issues
+post constraints on non-subset type parameters
+exceptions in .ACCEPTS at compile time
+fixed implicits such &?ROUTINE in methods
+fixed labels on lazy loops
+several regex related issues
+and many more smaller fixes!
+The number of passing test-files with the new Raku grammar are now 142/153 (make test +0) and 1170/1355 (make spectest +12).
